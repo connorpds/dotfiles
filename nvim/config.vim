@@ -12,6 +12,7 @@ set cursorcolumn
 set ignorecase
 set splitright
 set splitbelow
+set noswapfile
 "This unsets the "last search pattern" register by hitting return to deal with
 "annoying leftover higlighting
 nnoremap <CR> :noh<CR><CR>
