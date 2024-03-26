@@ -10,6 +10,8 @@ set expandtab
 set cursorline
 set cursorcolumn
 set ignorecase
+set splitright
+set splitbelow
 "This unsets the "last search pattern" register by hitting return to deal with
 "annoying leftover higlighting
 nnoremap <CR> :noh<CR><CR>
@@ -22,7 +24,7 @@ set mouse=a
 set background=light
 source ~/.config/nvim/colors/nord.vim
 set termguicolors
-set virtualedit=onemore "allow the cursor to go to the end of the line
+set virtualedit=onemore "allow the cursor to go to theo end of the line
 
 " Use macOS pbcopy and pbpaste for clipboard operations
 "if has('mac')
