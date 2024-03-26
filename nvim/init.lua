@@ -31,3 +31,7 @@ keys.map("<C-/>", "Live Grep", ":Telescope live_grep<CR>", { mode = 'n' })
 keys.map("<C-f>", "Display git files", ":Telescope git_files<cr>", { mode = "n" })
 keys.map("<C-p>", "Display all files", ":Telescope find_files<CR>", { mode = "n" })
 keys.map("<leader>b", "Show buffers", ":Telescope buffers<CR>", { mode = 'n' })
+
+
+keys.map("<", "Dedent", "<gv", { mode = "v" })
+keys.map(">", "Indent", ">gv", { mode = "v" })
