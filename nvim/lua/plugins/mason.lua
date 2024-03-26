@@ -14,7 +14,6 @@ return {
         'clangd',
         'rust_analyzer',
         -- 'lua-language-server',
-        'pyright',
       },
       automatic_installation = true,
     }
