@@ -27,6 +27,14 @@ source ~/.config/nvim/colors/nord.vim
 set termguicolors
 set virtualedit=onemore "allow the cursor to go to theo end of the line
 
+
+command WQ wq
+command Wq wq
+command W w
+command Q q
+nnoremap ; :
+
+
 " Use macOS pbcopy and pbpaste for clipboard operations
 "if has('mac')
   " Copy to clipboard using pbcopy
