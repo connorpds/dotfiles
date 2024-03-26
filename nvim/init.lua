@@ -23,6 +23,7 @@ require('lazy').setup {
   -- deps that a lot of packages want
   'nvim-lua/plenary.nvim',
   'MunifTanjim/nui.nvim',
+  -- Allow us to use `:ClangFormat` to format w/o an lsp
   'rhysd/vim-clang-format',
 }
 
