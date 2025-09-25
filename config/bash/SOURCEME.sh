@@ -1,4 +1,4 @@
-CPDS_BASHFILES="$HOME/.config/cpds_bashfiles"
+CPDS_BASHFILES="$HOME/.config/bash"
 
 files_to_source=("aesthetics.sh" "aliases.sh")
 for file in ${files_to_source[@]}; do
