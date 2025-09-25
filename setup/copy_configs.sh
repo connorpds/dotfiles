@@ -11,9 +11,10 @@ if [ -d "${HOME}/.config" ]; then
   echo "~/.config directory already present. Contents:"
   ls -la "${HOME}/.config"
   while true; do
-    read -p "Do you wish to irreversibly overwrite the contents of ~/.config? (y/n)" yn 
+    read -p "Do you wish to irreversibly erase + overwrite the contents of ~/.config? (y/n)" yn 
     case $yn in 
       [Yy]* ) echo "Overwriting."
+              rm -rf "${HOME}/.config"
               cp -r "${HOME}/dotfiles/config" "${HOME}/.config"
               echo "Verify the contents below:"
               ls -la "${HOME}/.config"
