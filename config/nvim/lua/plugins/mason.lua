@@ -13,7 +13,7 @@ return {
       ensure_installed = {
         'clangd',
         'rust_analyzer',
-        -- 'lua-language-server',
+        'lua-language-server',
       },
       automatic_installation = true,
     }
@@ -21,7 +21,7 @@ return {
     -- Next, hook up mason so that when a language server
     -- becomes available, it starts the server w/ lspconfig
     mason_lspconfig.setup_handlers {
-      require'core.lsp'.setup_server
+      require'helpers/lsp_setup_server.lua'.setup_server
     }
   end
 }
