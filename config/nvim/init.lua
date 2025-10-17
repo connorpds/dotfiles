@@ -72,6 +72,3 @@ require("core.clipboard") --see clipboard.lua!
 vim.cmd.colorscheme("nord")
 
 
-
------------------ lazy 
-require("core.lazy")
