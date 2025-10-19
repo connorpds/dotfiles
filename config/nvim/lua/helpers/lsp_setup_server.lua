@@ -1,4 +1,4 @@
-local keys = require('core.keymap')
+local keys = require('helpers.keymap')
 local lsp = require('lspconfig')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 

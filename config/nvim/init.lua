@@ -26,7 +26,7 @@ local opt_options = {
   mouse = "a", --enable mouse input!
   ignorecase = true, --case insensitive search/filtering by default
   clipboard = "unnamedplus",
-
+  emoji = false,
 ---------------pane options-----------------
   splitright = true, -- vsplit opens to the right 
   splitbelow = true, -- split opens below
