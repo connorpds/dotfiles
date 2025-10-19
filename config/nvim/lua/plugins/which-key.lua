@@ -17,7 +17,7 @@ return {
           BS = "bksp",
         },
       },
-      window = {
+      win = {
         border = "rounded",
       },
     })
