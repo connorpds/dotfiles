@@ -72,6 +72,8 @@ require("core.clipboard") --see clipboard.lua!
 vim.cmd.colorscheme("nord")
 
 
+------------------  no nerdfonts!
+vim.g.have_nerd_font = false
 
 ----------------- lazy 
 require("core.lazy")
