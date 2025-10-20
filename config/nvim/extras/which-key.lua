@@ -1,3 +1,5 @@
+--OPTIONAL: FOR USE WITH LAZY! Also for some fucking reason absolutely INSISTS upon opening 
+--when switching to visual mode. 
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
