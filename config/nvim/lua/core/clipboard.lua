@@ -5,86 +5,63 @@
 -- If no provider is found, warns loudly (press ENTER to continue) and
 -- includes install instructions.
 ---------------------------------------------------------------------------
+-- lua/plugins/clipboard.lua
 
-local sysname = vim.loop.os_uname().sysname
-local is_wsl  = (vim.fn.has("wsl") == 1)
+local uname = vim.loop.os_uname().sysname
+local is_wsl = (vim.fn.has("wsl") == 1) or (os.getenv("WSL_DISTRO_NAME") ~= nil)
 
--- === macOS ===
-if sysname == "Darwin" then
+
+if uname == "Darwin" then
+  -- macOS
   vim.g.clipboard = {
     name = "macOS-clipboard",
-    copy = { ["+"] = "pbcopy", ["*"] = "pbcopy" },
-    paste = { ["+"] = "pbpaste", ["*"] = "pbpaste" },
+    copy = {
+      ["+"] = "pbcopy",
+      ["*"] = "pbcopy",
+    },
+    paste = {
+      ["+"] = "pbpaste",
+      ["*"] = "pbpaste",
+    },
     cache_enabled = 0,
   }
-end
 
--- === Linux (Wayland / X11 / KDE Plasma) ===
-if sysname == "Linux" and not is_wsl then
-  if vim.fn.executable("wl-copy") == 1 then
-    vim.g.clipboard = {
-      name = "wl-clipboard",
-      copy = { ["+"] = "wl-copy --foreground --type text/plain",
-               ["*"] = "wl-copy --foreground --type text/plain" },
-      paste = { ["+"] = "wl-paste --no-newline",
-                ["*"] = "wl-paste --no-newline" },
-      cache_enabled = 0,
-    }
-  elseif vim.fn.executable("xclip") == 1 then
-    vim.g.clipboard = {
-      name = "xclip",
-      copy = { ["+"] = "xclip -selection clipboard",
-               ["*"] = "xclip -selection primary" },
-      paste = { ["+"] = "xclip -selection clipboard -o",
-                ["*"] = "xclip -selection primary -o" },
-      cache_enabled = 0,
-    }
-  elseif vim.fn.executable("xsel") == 1 then
-    vim.g.clipboard = {
-      name = "xsel",
-      copy = { ["+"] = "xsel --clipboard --input",
-               ["*"] = "xsel --primary --input" },
-      paste = { ["+"] = "xsel --clipboard --output",
-                ["*"] = "xsel --primary --output" },
-      cache_enabled = 0,
-    }
-  end
-end
+elseif uname == "Linux" and not is_wsl then
+  -- regular Linux (non-WSL), using xclip here as before
 
--- === Windows native ===
-if sysname:match("Windows") and not is_wsl then
   vim.g.clipboard = {
-    name = "win32yank",
-    copy = { ["+"] = "win32yank.exe -i --crlf",
-             ["*"] = "win32yank.exe -i --crlf" },
-    paste = { ["+"] = "win32yank.exe -o --lf",
-              ["*"] = "win32yank.exe -o --lf" },
+    name = "linux-clipboard",
+    copy = {
+      ["+"] = "xclip -selection clipboard",
+      ["*"] = "xclip -selection primary",
+    },
+    paste = {
+      ["+"] = "xclip -selection clipboard -o",
+
+      ["*"] = "xclip -selection primary -o",
+    },
+    cache_enabled = 0,
+
+  }
+
+elseif is_wsl then
+  -- WSL: talk to Windows clipboard
+  vim.g.clipboard = {
+    name = "wsl-clipboard",
+    copy = {
+      ["+"] = { "win32yank.exe", "-i", "--crlf" },
+      ["*"] = { "win32yank.exe", "-i", "--crlf" },
+    },
+    paste = {
+      ["+"] = { "win32yank.exe", "-o", "--lf" },
+      ["*"] = { "win32yank.exe", "-o", "--lf" },
+    },
     cache_enabled = 0,
   }
 end
 
--- === WSL2 ===
-if is_wsl then
-  if vim.fn.executable("win32yank.exe") == 1 then
-    vim.g.clipboard = {
-      name = "win32yank-wsl",
-      copy = { ["+"] = "win32yank.exe -i --crlf",
-               ["*"] = "win32yank.exe -i --crlf" },
-      paste = { ["+"] = "win32yank.exe -o --lf",
-                ["*"] = "win32yank.exe -o --lf" },
-      cache_enabled = 0,
-    }
-  elseif vim.fn.executable("/mnt/c/Windows/System32/clip.exe") == 1 then
-    vim.g.clipboard = {
-      name = "wsl-clip-fallback",
-      copy = { ["+"] = "/mnt/c/Windows/System32/clip.exe",
-               ["*"] = "/mnt/c/Windows/System32/clip.exe" },
-      paste = { ["+"] = "powershell.exe -NoProfile -Command Get-Clipboard | tr -d '\r'",
-                ["*"] = "powershell.exe -NoProfile -Command Get-Clipboard | tr -d '\r'" },
-      cache_enabled = 0,
-    }
-  end
-end
+
+
 
 -- === tmux ===
 -- If Neovim is running inside tmux and no provider is set yet,
