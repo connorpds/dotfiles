@@ -48,6 +48,12 @@ local _keymap = {
   ['<Right>'] = { 'accept', 'fallback'},
 }
 
+---- cmdline settings recommended by dev for behavior matching default. 
+local _cmdline = {
+  keymap = { preset = 'inherit' },
+  completion = { menu = { auto_show = true } },
+}
+
 return {
   "saghen/blink.cmp",
   version = "v1.*",
@@ -58,6 +64,7 @@ return {
     completion = _completion, 
     sources = _sources,
     keymap = _keymap, 
+    cmdline = _cmdline,
   },
   --just in case some other plugin affects sources.default, merge the lists  
   opts_extend = {"sources.default" }
