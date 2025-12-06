@@ -2,12 +2,14 @@
  
 ----  appearance options
 local _appearance = {
-    nerd_font_variant = "none",
-    -- no icons (no nerdfonts, so why icons?)
-    kind_icons = {},
-  }
+  nerd_font_variant = "none",
+  -- no icons (no nerdfonts, so why icons?)
+  kind_icons = {},
+}
 
+----- completion options!
 local _completion = {
+  --- completion menu settings
   menu = {
     draw = {
       -- Only show the label (+ description), nothing else
@@ -16,7 +18,17 @@ local _completion = {
       },
     },
   },
-  documentation = {auto_show = false},
+
+  --- docs settings 
+  --documentation = {auto_show = false},
+
+  --- list settings 
+  list = {
+    selection = {
+      preselect = false,
+      auto_insert = false,
+    },
+  },
 }
 
 
@@ -26,7 +38,15 @@ local _sources = {
 }
 
 
---
+---- keymap ------- 
+local _keymap = {
+  --disable default preset 
+  preset = 'none',
+  
+  ['<Up>'] = { 'select_prev', 'fallback'},
+  ['<Down>'] = { 'select_next', 'fallback'},
+  ['<Right>'] = { 'accept', 'fallback'},
+}
 
 return {
   "saghen/blink.cmp",
@@ -36,7 +56,8 @@ return {
   opts = {
     appearance = _appearance, 
     completion = _completion, 
-    sources = _sources, 
+    sources = _sources,
+    keymap = _keymap, 
   },
   --just in case some other plugin affects sources.default, merge the lists  
   opts_extend = {"sources.default" }
